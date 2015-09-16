@@ -1,12 +1,13 @@
 __author__ = 'churley'
 
 
-from tcpserver import *
+from SocketServer import *
 from config.settings import settings
 from storage.StorageController import StorageController
+import server_utils
 import importlib
 
-class PimpyServer(object):
+class PyrseServer(object):
 
     def __init__(self, host, port):
         self.host = host
@@ -21,9 +22,20 @@ class PimpyServer(object):
 
     def run(self):
         print 'starting tcp server'
-        server = EchoServer(self)
+        server = SocketServer(self)
         print 'started!!!!'
         asyncore.loop()
 
     def cmd(self, msg):
-        print 'in main app: '+msg
+        c,k,d = server_utils.parseCommand(msg)
+        func = getattr(self, c)
+        return func(k,d)
+
+    def store(self, key, data):
+        return self.storage.store(key, data)
+
+    def loadone(self, key, data=''):
+        return self.storage.getOne(key)
+
+
+        

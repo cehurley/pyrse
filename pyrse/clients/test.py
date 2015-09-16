@@ -16,24 +16,29 @@ class PimpyClient(object):
         except:
             print "couldn't get a socket"
 
-    def send(self, command, data):
-        for i in range(5):
-            self.sock.sendall(command+' :'+data + "\n")
-            received = self.sock.recv(1024)
-            print "Sent:     {}".format(data)
-            print "Received: {}".format(received)
+    def send(self, command, key, data=''):
+        cmd = ' '.join([command, key, data])
+        self.sock.sendall(cmd)
+        received = self.sock.recv(1024)
+        print "Sent:     {}".format(cmd)
+        print "Received: {}".format(received)
 
 
-    def save(self, data):
-        self.send(pc.STORE, data)
+    def save(self, key, data):
+        self.send(pc.STORE, key, data)
 
+    def load(self, key):
+        self.send(pc.LOAD, key)
 
     def close(self):
         self.sock.close()
 
 
 c = PimpyClient('localhost', 8080)
-c.save("{'key':'val'}")
+print 'saving'
+c.save('01082', "{'name':'bobbycakes'}")
+print 'getting'
+c.load('01082')
 c.close()
 
 

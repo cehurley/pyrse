@@ -5,7 +5,7 @@ __author__ = 'churley'
 import asyncore
 import socket
 
-class EchoHandler(asyncore.dispatcher_with_send):
+class CmdHandler(asyncore.dispatcher_with_send):
 
     def __init__(self, sock, app):
         asyncore.dispatcher_with_send.__init__(self, sock)
@@ -14,10 +14,10 @@ class EchoHandler(asyncore.dispatcher_with_send):
     def handle_read(self):
         data = self.recv(8192)
         if data:
-            self.app.cmd(data)
-            self.send(data)
+            r = self.app.cmd(data)
+            self.send(r)
 
-class EchoServer(asyncore.dispatcher):
+class SocketServer(asyncore.dispatcher):
 
     def __init__(self, app):
         asyncore.dispatcher.__init__(self)
@@ -32,5 +32,5 @@ class EchoServer(asyncore.dispatcher):
         if pair is not None:
             sock, addr = pair
             print 'Incoming connection from %s' % repr(addr)
-            handler = EchoHandler(sock, self.app)
+            handler = CmdHandler(sock, self.app)
 

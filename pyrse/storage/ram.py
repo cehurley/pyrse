@@ -20,6 +20,12 @@ class MemoryStore(PimpyStorageEngine):
         except:
             return None
 
+    def hasKey(self, key):
+        if key in self.bag.keys():
+            return True
+        else:
+            return False
+
     def delete(self, key):
         try:
             del self.bag[key]
@@ -29,8 +35,8 @@ class MemoryStore(PimpyStorageEngine):
 
     def getAll(self):
         temp = []
-        for k,v in self.bag:
-            temp.append([k,v])
+        for k in self.bag.keys():
+            temp.append([k,self.bag[k]])
         return temp
 
 

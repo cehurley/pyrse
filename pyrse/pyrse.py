@@ -1,7 +1,7 @@
 __author__ = 'churley'
 
-from servers.server import PimpyServer
+from servers.server import PyrseServer
 
-server = PimpyServer('localhost', 8080)
+server = PyrseServer('localhost', 8080)
 server.run()
 
