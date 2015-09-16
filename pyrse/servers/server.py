@@ -26,4 +26,4 @@ class PimpyServer(object):
         asyncore.loop()
 
     def cmd(self, msg):
-        print 'in main app: '+cmd
+        print 'in main app: '+msg

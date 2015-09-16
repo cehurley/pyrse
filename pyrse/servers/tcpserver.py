@@ -8,9 +8,8 @@ import socket
 class EchoHandler(asyncore.dispatcher_with_send):
 
     def __init__(self, sock, app):
-        asyncore.dispatcher_with_send.__init__(sock)
+        asyncore.dispatcher_with_send.__init__(self, sock)
         self.app = app
-
 
     def handle_read(self):
         data = self.recv(8192)
