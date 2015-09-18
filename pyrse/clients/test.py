@@ -20,8 +20,8 @@ class PimpyClient(object):
         cmd = ' '.join([command, key, data])
         self.sock.sendall(cmd)
         received = self.sock.recv(1024)
-        print "Sent:     {}".format(cmd)
-        print "Received: {}".format(received)
+        print "Sent:     %s"%(cmd)
+        print "Received: %s"%(received)
 
 
     def save(self, key, data):
