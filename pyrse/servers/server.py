@@ -13,12 +13,16 @@ if env.compat == Environment.SAFE:
 
 
 class PyrseServer(object):
-
+    ''' Main server class. This is the main app controller '''
     def __init__(self, host, port):
         self.host = host
         self.port = port
         self.engines = settings.ENGINES
         self.storage = StorageController(self)
+        # see conig/setting.py for format of these.
+        # allows override of the in-memory store
+        # in future, extend this to allow custom
+        # disk storage
         r_module  = self.engines['memory']['class'][0]
         r_class   = self.engines['memory']['class'][1]
 
@@ -42,11 +46,13 @@ class PyrseServer(object):
         asyncore.loop()
 
     def cmd(self, msg):
+        ''' main entry for parsing commands '''
         c,k,d = server_utils.parseCommand(msg)
         func = getattr(self, c)
         return func(k,d)
 
     def store(self, key, data):
+        # todo: add switch for ram vs disk
         return self.storage.store(key, data)
 
     def loadone(self, key, data=''):
