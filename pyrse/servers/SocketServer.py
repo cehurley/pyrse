@@ -6,18 +6,18 @@ import asyncore
 import socket
 
 class CmdHandler(asyncore.dispatcher_with_send):
-	''' Main handler for socket calls '''
+    ''' Main handler for socket calls '''
     def __init__(self, sock, app):
         asyncore.dispatcher_with_send.__init__(self, sock)
         self.app = app
 
     def handle_read(self):
-		''' entry point for interfacing with pyrse '''
+        ''' entry point for interfacing with pyrse '''
         data = self.recv(8192)
         if data:
-			# todo: add sanitization here
+            # todo: add sanitization here
             r = self.app.cmd(data)
-			# todo: hook error codes here
+            # todo: hook error codes here
             self.send(r)
 
 class SocketServer(asyncore.dispatcher):
