@@ -20,26 +20,27 @@ class PimpyClient(object):
         cmd = ' '.join([command, key, data])
         self.sock.sendall(cmd)
         received = self.sock.recv(1024)
-        print "Sent:     %s"%(cmd)
-        print "Received: %s"%(received)
-
+        #print "Sent:     %s"%(cmd)
+        #print "Received: %s"%(received)
+	return received
 
     def save(self, key, data):
-        self.send(pc.STORE, key, data)
+        return self.send(pc.STORE, key, data)
 
     def load(self, key):
-        self.send(pc.LOAD, key)
+        return self.send(pc.LOAD, key)
 
     def close(self):
         self.sock.close()
 
 
-c = PimpyClient('localhost', 8080)
-print 'saving'
-c.save('01082', "{'name':'bobbycakes'}")
-print 'getting'
-c.load('01082')
-c.close()
+if __name__ == '__main__':
+    c = PimpyClient('localhost', 8080)
+    print 'saving'
+    c.save('01082', "{'name':'bobbycakes'}")
+    print 'getting'
+    c.load('01082')
+    c.close()
 
 
 

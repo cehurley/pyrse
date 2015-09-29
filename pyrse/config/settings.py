@@ -7,6 +7,9 @@ class settings(object):
     ENGINES = {'memory':
                    {'engine':'ram', 'class':['storage.ram','MemoryStore']},
                'persistant':
-                   {'engine':'file', 'path':HOMEDIR+'/data.pimpy'}
+                   {'engine':'file',
+                    'class' :['storage.file','FileStore'],
+                    'path'  :HOMEDIR+'/data.pimpy'
+                   }
               }
 

@@ -7,10 +7,9 @@ class StorageController(object):
         self.ram_store = None
         self.persistent_store = None
 
-
     def store(self, key, data):
         self.ram_store.insert(key, data)
-        print self.ram_store.foot_print()
+        #print self.ram_store.foot_print()
         #print self.ram_store.getAll()
         return key
 

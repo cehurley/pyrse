@@ -7,6 +7,7 @@ class MemoryStore(PimpyStorageEngine):
 
     def __init__(self):
         self.bag = {}
+        self.dump_method = None
 
     def foot_print(self):
         return sys.getsizeof(self.bag)
@@ -19,6 +20,10 @@ class MemoryStore(PimpyStorageEngine):
             return self.bag[key]
         except:
             return None
+
+    def syncToDisk(self):
+        self.dump_method(self.getAll())
+        print 'background sync completed'
 
     def hasKey(self, key):
         if key in self.bag.keys():
