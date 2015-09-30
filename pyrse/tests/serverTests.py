@@ -12,7 +12,7 @@ class ServerTestCase(unittest.TestCase):
     def setUp(self):
         #self.server = PyrseServer('localhost', 8080)
         #proc = subprocess.Popen('cd ..;python pyrse.py', shell=True)
-        self.c = PimpyClient('localhost', 8080)
+        self.c = PimpyClient('localhost', 1211)
     def tearDown(self):
         #proc = subprocess.Popen('pkill pyrse.py', shell=True)
         self.c.close()
