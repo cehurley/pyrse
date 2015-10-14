@@ -2,6 +2,7 @@ __author__ = 'churley'
 import unittest
 import subprocess
 import sys
+import uuid
 sys.path.append('/Users/churley/pyrse/pyrse')
 sys.path.append('/Users/chadhurley/pyrse/pyrse')
 from servers.server import PyrseServer
@@ -27,12 +28,13 @@ class ServerTestCase(unittest.TestCase):
         assert temp.strip() == "{'name':'bobbycakes'}", "bad get"
 
     def testSave10000(self):
-        for i in xrange(10000):
-            temp = self.c.save(str(i), "{'name': 'object%d'}"%i)
-            assert temp.strip() == str(i), "bad save"
+        for i in xrange(10500):
+            u = uuid.uuid4()
+            temp = self.c.save(str(u), "{'name': '%s'}"%str(u))
+            assert temp.strip() == str(u), "bad save"
 
     def testLoad10000(self):
-        for i in xrange(10000):
+        for i in xrange(10500):
             temp = self.c.load(str(i))
             assert temp.strip() == "{'name': 'object%d'}"%i, "bad load"
 

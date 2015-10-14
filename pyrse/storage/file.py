@@ -4,7 +4,8 @@ from StorageEngines import *
 
 class FileStore(PimpyStorageEngine):
     RAMDUMP = 'saveAllFromRam'
-
+    INITFROMDISK = 'initFromFileSystem'
+    
     def __init__(self, path):
         self.file = path
 
@@ -16,6 +17,11 @@ class FileStore(PimpyStorageEngine):
 
 
     def initFromFileSystem(self):
-	    pass
+        temp = {}
+        with open(self.file, 'rb') as f:
+            for d in f:
+                t = d.split('|')
+                temp[t[0]] = t[1].strip()
+        return temp
 
 

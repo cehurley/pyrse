@@ -61,6 +61,12 @@ class PyrseServer(object):
                                         p_storage_class.RAMDUMP)
                 self.storage.ram_store.dump_method = dump_method
 
+            if hasattr(p_storage_class, 'INITFROMDISK'):
+                init_method = getattr(self.storage.persistant_store, 
+                                        p_storage_class.INITFROMDISK)
+                self.storage.ram_store.init_method = init_method
+                
+            self.storage.ram_store.initFromDisk()
 
 
 
